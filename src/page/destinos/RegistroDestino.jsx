@@ -6,14 +6,16 @@ import MenuItem from '@mui/material/MenuItem';
 const RegistroDestino = ({ payload, setPayload }) => {
     const [clave, setClave] = useState("");
     const [destino, setDestino] = useState("");
+    const [tua, setTua] = useState("");
 
     useEffect(() => {
         setPayload({
             clave: clave,
-            destino: destino
+            destino: destino,
+            tua: tua
         });
 
-    }, [clave, destino])
+    }, [clave, destino, tua])
 
     return (
         <Box
@@ -38,6 +40,14 @@ const RegistroDestino = ({ payload, setPayload }) => {
                 variant="outlined"
                 value={destino}
                 onChange={(e) => setDestino(e.target.value)}
+            />
+            <br></br>
+            <TextField
+                id="tua"
+                label="Tua"
+                variant="outlined"
+                value={tua}
+                onChange={(e) => setTua(e.target.value)}
             />
         </Box>
     )

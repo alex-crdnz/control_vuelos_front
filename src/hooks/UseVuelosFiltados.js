@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import VueloService from '../services/VueloService';
 
-function UseDestinosRegistrados() {
+function useVuelosRegistrados(payload) {
 
-    const [destinosList, setDestinosList] = useState([]);
+    const [vuelosList, setVuelosList] = useState([]);
 
     function load() {
-        VueloService.getVuelos()
+        VueloService.getVueloFecha(payload)
             .then((resp) => {
-                setDestinosList(resp.data);
+                setVuelosList(resp.data);
             })
     }
 
@@ -20,7 +20,7 @@ function UseDestinosRegistrados() {
         load();
     }, []);
 
-    return [destinosList, reload];
+    return [vuelosList, reload];
 }
 
-export default UseDestinosRegistrados;
+export default useVuelosRegistrados;

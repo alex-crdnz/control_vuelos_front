@@ -6,6 +6,7 @@ import AvionSevice from "../../services/AvionSevice";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { Button } from "@mui/material";
+import UserService from "../../services/UserService";
 import UseAvionesRegistrados from "../../hooks/UseAvionesRegistrados";
 
 const getInitialForm = () => {
@@ -21,28 +22,32 @@ const getInitialForm = () => {
 }
 
 const Aviones = (props) => {
+    
     const [avionesList, reload] = UseAvionesRegistrados();
     const [payload, setPayload] = useState(getInitialForm());
+    const user = (localStorage.getItem("user"));
+    const password = (localStorage.getItem("password"));
+
+    useEffect(() => {
+        UserService.getRole(user, password)
+            .then((resp) => {
+                if (resp.data["role"] === "user") {
+                    props.history.push("/inicio")
+                }
+            })
+    }, []);
 
     const delete_avion = () => {
         AvionSevice.deleteAvion(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
-            })
-            .catch(error => {
-                console.log(error)
             })
     }
 
     const save = () => {
         AvionSevice.postAvion(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
-            })
-            .catch(error => {
-                console.log(error)
             })
     }
 

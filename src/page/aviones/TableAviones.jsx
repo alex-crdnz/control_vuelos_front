@@ -12,13 +12,12 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const TableAviones = ({ avionesList }) => {
-    console.log(avionesList)
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow>
+                        <TableRow sx={{ backgroundColor: "lightblue"}}>
                             <TableCell>Clave Avion</TableCell>
                             <TableCell align="right">Asientos Standard</TableCell>
                             <TableCell align="right">Costo Standard</TableCell>

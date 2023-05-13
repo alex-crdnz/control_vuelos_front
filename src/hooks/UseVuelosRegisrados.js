@@ -10,9 +10,6 @@ function useVuelosRegistrados() {
             .then((resp) => {
                 setVuelosList(resp.data);
             })
-            .catch((error) => {
-                console.log(error)
-            })
     }
 
     function reload() {

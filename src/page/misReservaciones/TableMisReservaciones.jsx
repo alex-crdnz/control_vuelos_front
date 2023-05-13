@@ -11,27 +11,28 @@ function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
 
-const TableDestino = ({ destinosList }) => {
+const TableMisReservaciones = ({ reservacion }) => {
+    console.log("reservacion")
+    console.log(reservacion)
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
-                <Table sx={{ minWidth: 60 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow sx={{ backgroundColor: "lightblue"}}>
-                            <TableCell align="center">Clave</TableCell>
-                            <TableCell align="center">Destino</TableCell>
-                            <TableCell align="center">Tua</TableCell>
+                        <TableRow sx={{ backgroundColor: "lightblue" }}>
+                            <TableCell align="right">Clave Reservacion</TableCell>
+                            <TableCell align="right">Costo Total</TableCell>
+                            <TableCell align="right">Configuracion</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {destinosList.map((row) => (
+                        {reservacion.map((row) => (
                             <TableRow
-                                key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell align="center">{row.values}</TableCell>
-                                <TableCell align="center">{row.label}</TableCell>
-                                <TableCell align="center">{row.tua}</TableCell>
+                                <TableCell align="right">{row["body"]["clave_reservacion"]}</TableCell>
+                                <TableCell align="right">{row["body"]["costo_total"]}</TableCell>
+                                <TableCell align="right">{JSON.stringify(row["body"]["configuracion"]["configuracion"]["vuelo"])}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -41,4 +42,4 @@ const TableDestino = ({ destinosList }) => {
     );
 }
 
-export default TableDestino
+export default TableMisReservaciones

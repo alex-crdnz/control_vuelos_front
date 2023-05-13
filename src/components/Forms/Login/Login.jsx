@@ -39,10 +39,10 @@ const Login = (props) => {
   const validar = () => {
     UserService.login(credentials)
       .then((resp) => {
-        console.log(resp.data)
         if (resp.data["message"]==="Credenciales correctas") {
           toastr.success(resp.data["message"])
           localStorage.setItem("user", JSON.stringify(credentials.user));
+          localStorage.setItem("password", JSON.stringify(credentials.password));
           props.history.push("/vuelos")
         } else {
           toastr.error(resp.data)
@@ -51,15 +51,13 @@ const Login = (props) => {
       .catch((error) => {
         toastr.error(error)
       })
-      .finally()
-    console.log(credentials)
   }
 
   const registrar = () => {
     if (view === REGISTRAR) {
       UserService.postUsers(credentials)
         .then((response) => {
-          console.log(response.data);
+          console.log("Usuario Registrado");
         })
         .catch((error) => {
           console.error(error);

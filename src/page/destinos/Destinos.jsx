@@ -5,39 +5,50 @@ import TableDestino from "../destinos/TableDestino";
 import VueloService from "../../services/VueloService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
+import UserService from "../../services/UserService";
 import { Button } from "@mui/material";
 import UseDestinosRegistrados from "../../hooks/UseDestinosRegistrados";
 
 const getInitialForm = () => {
     return {
         "clave": "",
-        "destino": ""
+        "destino": "",
+        "tua": ""
     }
 }
 
 const Destinos = (props) => {
+    const user = (localStorage.getItem("user"));
+    const password = (localStorage.getItem("password"));
+
+    useEffect(() => {
+        UserService.getRole(user, password)
+            .then((resp) => {
+                if (resp.data["role"] === "user") {
+                    props.history.push("/inicio")
+                }
+            })
+    }, []);
     const [destinosList, reload] = UseDestinosRegistrados();
     const [payload, setPayload] = useState(getInitialForm());
 
     const delete_destino = () => {
         VueloService.deleteDestino(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
             })
             .catch(error => {
-                console.log(error)
+                console.log()
             })
     }
 
     const save = () => {
         VueloService.postDestino(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
             })
             .catch(error => {
-                console.log(error)
+                console.log()
             })
     }
 

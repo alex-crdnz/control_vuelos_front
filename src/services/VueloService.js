@@ -20,8 +20,14 @@ class VueloService {
         return axios.get("http://localhost:5000/vuelo");
     }
 
+    getVueloFecha(payload){
+        let fecha_salida = (payload["fecha_salida"]=="")? 0:payload["fecha_salida"]
+        let fecha_llegada = (payload["fecha_llegada"]=="")? 0:payload["fecha_llegada"]
+        return axios.get("http://localhost:5000/vuelo/"+payload["origen"]+"/"+payload["destino"]+"/"+fecha_salida+"/"+fecha_llegada);
+    }
+
     postDestino(payload){
-        return axios.post("http://localhost:5000/vuelo/crear/"+payload["clave"]+"/"+payload["destino"]);
+        return axios.post("http://localhost:5000/vuelo/crear/"+payload["clave"]+"/"+payload["destino"]+"/"+payload["tua"]);
     }
 
     deleteDestino(payload){

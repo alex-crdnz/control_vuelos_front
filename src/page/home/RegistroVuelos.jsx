@@ -24,10 +24,6 @@ const RegistroVuelos = ({ vuelos, payload, setPayload, aviones }) => {
         });
 
     }, [vueloOrigen, vueloDestino, costoBase, avion, claveVuelo, fechaSalida, fechaLlegada])
-
-    console.log(vueloOrigen)
-    console.log(vueloDestino)
-    console.log(avion)
     return (
         <Box
             component="form"
@@ -63,23 +59,6 @@ const RegistroVuelos = ({ vuelos, payload, setPayload, aviones }) => {
                 value={fechaLlegada} onChange={(e) => setFechaLlegada(e.target.value)}
             />
             <TextField
-                id="avion-modelo"
-                select
-                label="Avión"
-                helperText="Asigna un avión"
-                value={avion}
-                onChange={(e) => setAvion(e.target.value)}
-            >
-                <MenuItem value="">
-                    seleccione
-                </MenuItem>
-                {aviones.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                        {option.modelo}
-                    </MenuItem>
-                ))}
-            </TextField>
-            <TextField
                 id="vuelo-origen"
                 select
                 label="Origen"
@@ -111,6 +90,23 @@ const RegistroVuelos = ({ vuelos, payload, setPayload, aviones }) => {
                 {vuelos.map((option) => (
                     <MenuItem key={option.label} value={option.label}>
                         {option.label}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <TextField
+                id="avion-modelo"
+                select
+                label="Avión"
+                helperText="Asigna un avión"
+                value={avion}
+                onChange={(e) => setAvion(e.target.value)}
+            >
+                <MenuItem value="">
+                    seleccione
+                </MenuItem>
+                {aviones.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                        {option.modelo}
                     </MenuItem>
                 ))}
             </TextField>

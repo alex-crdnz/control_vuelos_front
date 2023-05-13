@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import UserService from '../../services/UserService';
 
 const NavBar = (props) => {
   const user = (localStorage.getItem("user"));
-  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -21,7 +21,7 @@ const NavBar = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Control De Vuelos
           </Typography>
-          <Button color="inherit">{user}</Button>
+          <Button color="inherit" href="/home">{user}</Button>
         </Toolbar>
       </AppBar>
     </Box>

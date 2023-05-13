@@ -7,7 +7,6 @@ const FormRegistrar = ({ credentials, setCredentials, showViewLogin }) => {
     const [msgPassword, setMsgPassword] = useState({ status: false, content: "coincide" });
 
     useEffect(() => {
-        console.log(credentials);
         if (credentials.password2 != credentials.password) {
             msgPassword.status = true;
             msgPassword.content = "Las contraseñas no coinciden";

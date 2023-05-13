@@ -1,44 +1,47 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Box, Stack } from "@mui/system";
-import RegistroDestino from "../destinos/RegistroDestino"
-import TableDestino from "../destinos/TableDestino";
+import RegistroAsiento from "./RegistroAsiento";
 import VueloService from "../../services/VueloService";
-import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SearchIcon from '@mui/icons-material/Search';
 import { Button } from "@mui/material";
+import UserService from "../../services/UserService";
 import UseDestinosRegistrados from "../../hooks/UseDestinosRegistrados";
+import UseAsiento from "../../hooks/UseAsientos"
+import TableAsientos from "./TableAsientos";
+import AsientoService from "../../services/AsientoService";
 
 const getInitialForm = () => {
     return {
-        "clave": "",
-        "destino": ""
+        "clave": ""
     }
 }
 
 const Asientos = (props) => {
-    const [destinosList, reload] = UseDestinosRegistrados();
     const [payload, setPayload] = useState(getInitialForm());
+    const user = (localStorage.getItem("user"));
+    const password = (localStorage.getItem("password"));
+    const [vuelos, setVuelos] = useState([]);
+    const [asientos, setAsientos] = useState([]);
+    const [asientosList, reload] = UseAsiento(payload);
+    useEffect(() => {
+        UserService.getRole(user, password)
+            .then((resp) => {
+                if (resp.data["role"] === "user") {
+                    props.history.push("/inicio")
+                }
+            })
+    }, []);
 
-    const delete_destino = () => {
-        VueloService.deleteDestino(payload)
-            .then(resp => {
-                console.log(resp)
-                reload()
+    useEffect(() => {
+        VueloService.getVuelosRegistrados()
+            .then((resp) => {
+                setVuelos(resp.data)
             })
-            .catch(error => {
-                console.log(error)
-            })
-    }
+    }, [])
 
     const save = () => {
-        VueloService.postDestino(payload)
-            .then(resp => {
-                console.log(resp)
-                reload()
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        reload()
     }
 
     return (
@@ -49,18 +52,17 @@ const Asientos = (props) => {
                 spacing={{ xs: 1, sm: 2, md: 4 }}
                 justifyContent="center"
             >
-                {/* <Box>
-                    <RegistroDestino payload={payload} setPayload={setPayload} />
+                <Box>
+                    <RegistroAsiento payload={payload} setPayload={setPayload} vuelos={vuelos} />
                 </Box>
                 <Box>
                     <div>
-                        <TableDestino destinosList={destinosList}></TableDestino>
+                        <TableAsientos asientos={asientosList}></TableAsientos>
                     </div>
-                </Box> */}
+                </Box>
             </Stack>
             <Stack spacing={2} direction="row" display='flex' justifyContent='center' >
-                <Button variant="outlined"  startIcon={<DeleteIcon />}>Delete</Button>
-                <Button variant="contained"  endIcon={<SendIcon />}>Registrar</Button>
+                <Button variant="contained"  onClick={save} endIcon={<SearchIcon />}>Buscar</Button>
             </Stack>
         </Fragment>
     )
