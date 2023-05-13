@@ -4,6 +4,7 @@ import TableVuelos from "./TableVuelos";
 import RegistroVuelo from "./RegistroVuelos";
 import vueloService from "../../services/VueloService";
 import AvionSevice from "../../services/AvionSevice";
+import UserService from "../../services/UserService";
 import { Button } from "@mui/material";
 import UseVuelosRegistrados from "../../hooks/UseVuelosRegisrados";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -22,6 +23,17 @@ const getInitialForm = () => {
 }
 
 const Formulario = (props) => {
+    const user = (localStorage.getItem("user"));
+    const password = (localStorage.getItem("password"));
+
+    useEffect(() => {
+        UserService.getRole(user, password)
+            .then((resp) => {
+                if (resp.data["role"] === "user") {
+                    props.history.push("/inicio")
+                }
+            })
+    }, []);
     const [vuelosList, reload] = UseVuelosRegistrados();
     const [vuelos, setVuelos] = useState([]);
     const [aviones, setAviones] = useState([]);
@@ -30,22 +42,20 @@ const Formulario = (props) => {
     const delete_vuelo = () => {
         vueloService.deleteVuelos(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
             })
             .catch(error => {
-                console.log(error)
+                console.log()
             })
     }
 
     const save = () => {
         vueloService.postVuelos(payload)
             .then(resp => {
-                console.log(resp)
                 reload()
             })
             .catch(error => {
-                console.log(error)
+                console.log()
             })
     }
 
@@ -56,7 +66,7 @@ const Formulario = (props) => {
                 setVuelos(resp.data)
             })
             .catch((error) => {
-                console.log(error)
+                console.log()
             })
     }, [])
 
@@ -66,7 +76,7 @@ const Formulario = (props) => {
                 setAviones(resp.data)
             })
             .catch((error) => {
-                console.log(error)
+                console.log()
             })
     }, [])
 

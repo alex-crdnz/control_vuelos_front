@@ -17,7 +17,7 @@ const TableVuelos = ({ vuelosList, vuelos }) => {
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow>
+                        <TableRow sx={{ backgroundColor: "lightblue"}}>
                             <TableCell>Clave</TableCell>
                             <TableCell align="right">Origen</TableCell>
                             <TableCell align="right">Destino</TableCell>

@@ -156,7 +156,6 @@ const Bienvenido = (props) => {
 
     useEffect(() => {
         const user = localStorage.getItem("user");
-        console.log(JSON.parse(user));
         if(user.status){
             props.history.push("/home")
         }else{

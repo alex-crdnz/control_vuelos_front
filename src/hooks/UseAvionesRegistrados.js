@@ -10,9 +10,6 @@ function UseAvionesRegistrados() {
             .then((resp) => {
                 setAvionesList(resp.data);
             })
-            .catch((error) => {
-                console.log(error)
-            })
     }
 
     function reload() {

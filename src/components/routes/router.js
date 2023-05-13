@@ -3,19 +3,23 @@ import { Router, Switch} from "react-router-dom";
 
 import FullPageLayout from "../../layout/FullPageLayout";
 import MenuPageLayout from "../../layout/MenuPageLayout";
+import UserPageLayout from "../../layout/UserPageLayout";
 import history from "../../utility/History";
 
 
 const LazyHome = lazy(() => import ("../../page/home/home"));
-const LazyFact = lazy(() => import ("../../page/fact/fact"));
 const LazyBienvenido = lazy(() => import("../../page/bienvenido/Bienvenido"));
 const LazyFormulario = lazy(() => import("../../page/home/Formulario"));
 const LazyAviones = lazy(() => import("../../page/aviones/Aviones"));
 const LazyDestino = lazy(() => import("../../page/destinos/Destinos"));
 const LazyAsiento = lazy(() => import("../../page/Asientos/Asientos"));
+const LazyUser = lazy(() => import("../../page/user/FormularioInicio"));
+const LazyReservacion = lazy(() => import("../../page/reservaciones/Reservacion"));
+const Lazyfact= lazy(() => import("../../page/fact/Payment"));
+const LazyMyReservacion= lazy(() => import("../../page/misReservaciones/MiReservacion"));
+
 
 const AppRouter = (props) => {
-    console.log(props)
     return (
         <Router basename='/' history={history}>
             <Switch>
@@ -25,17 +29,6 @@ const AppRouter = (props) => {
                 render={matchprops => (
                     <Suspense fallback={<h1>Cargando</h1>}>
                         <LazyHome {...matchprops} {...props} />
-                    </Suspense>
-                )}
-                ></FullPageLayout>
-            </Switch>
-            <Switch>
-                <FullPageLayout 
-                {...props} 
-                exact path="/fact" 
-                render={matchprops => (
-                    <Suspense fallback={<h1>Cargando</h1>}>
-                        <LazyFact {...matchprops} {...props} />
                     </Suspense>
                 )}
                 ></FullPageLayout>
@@ -94,6 +87,50 @@ const AppRouter = (props) => {
                     </Suspense>
                 )}
                 ></MenuPageLayout>
+            </Switch>
+            <Switch>
+                <UserPageLayout 
+                {...props} 
+                exact path="/inicio" 
+                render={matchprops => (
+                    <Suspense fallback={<h1>Cargando</h1>}>
+                        <LazyUser {...matchprops} {...props} />
+                    </Suspense>
+                )}
+                ></UserPageLayout>
+            </Switch>
+            <Switch>
+                <UserPageLayout 
+                {...props} 
+                exact path="/reservacion" 
+                render={matchprops => (
+                    <Suspense fallback={<h1>Cargando</h1>}>
+                        <LazyReservacion {...matchprops} {...props} />
+                    </Suspense>
+                )}
+                ></UserPageLayout>
+            </Switch>
+            <Switch>
+                <UserPageLayout 
+                {...props} 
+                exact path="/payment" 
+                render={matchprops => (
+                    <Suspense fallback={<h1>Cargando</h1>}>
+                        <Lazyfact {...matchprops} {...props} />
+                    </Suspense>
+                )}
+                ></UserPageLayout>
+            </Switch>
+            <Switch>
+                <UserPageLayout 
+                {...props} 
+                exact path="/MisReservaciones" 
+                render={matchprops => (
+                    <Suspense fallback={<h1>Cargando</h1>}>
+                        <LazyMyReservacion {...matchprops} {...props} />
+                    </Suspense>
+                )}
+                ></UserPageLayout>
             </Switch>
             
         </Router>)
